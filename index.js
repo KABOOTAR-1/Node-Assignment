@@ -101,7 +101,7 @@ app.get("/", async (req, res) => {
 
             await gmail.users.messages.modify({
               userId: "me",
-              id:mail.id,
+              id: mail.id,
               requestBody: {
                 addLabelIds: [labelId],
                 removeLabelIds: ["INBOX"],
@@ -113,7 +113,6 @@ app.get("/", async (req, res) => {
     }, Math.floor(Math.random() * (120 - 45 + 1) + 45) * 1000);
   }
 
-  // Call the main function to start the auto-reply process
   auto_reply();
 });
 
