@@ -57,13 +57,13 @@ app.get("/", async (req, res) => {
     }
   }
 
-
   async function auto_reply() {
     const labelId = await createLabel(auth);
 
     setInterval(async () => {
       const mails = await getUnrepliedMessages(auth);
       if (mails && mails.length > 0) {
+        const gmail = google.gmail({ version: "v1", auth });
         for (const mail of mails) {
           const maildata = await gmail.users.messages.get({
             userId: "me",
@@ -101,7 +101,7 @@ app.get("/", async (req, res) => {
 
             await gmail.users.messages.modify({
               userId: "me",
-              id: message.id,
+              id:mail.id,
               requestBody: {
                 addLabelIds: [labelId],
                 removeLabelIds: ["INBOX"],
